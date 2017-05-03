@@ -25,15 +25,16 @@ $(function() {
       var job_url = item.find('link').text();
 
       // Create <li> to store job listing.
-      var li = $('<li class="job-item"><a></a></li>');
+      var li = $('<li class="job-item"></li>');
 
       // Add job URL to the job listing
-      li.find('a')
-        .attr('href', job_url);
+      //li.find('a')
+      //  .attr('href', job_url);
 
       // Add the company name to  the job listing
-      li.find('a').append('<h2 class="company-name">' + company_name +
-        '</h2><p class="job-title">' + job_title + '</p>');
+      li.append('<h2 class="company-name">' + company_name +
+        '</h2><p class="job-title"><a href="' + job_url + '">'
+        + job_title + '</a></p>');
 
       li.appendTo($('ul.job-board'));
     });
