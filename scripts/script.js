@@ -10,8 +10,10 @@ $(function() {
     shell.openExternal(e.target.href);
   });
 
+  var zapier_feed_url = 'https://zapier.com/jobs/feeds/latest/';
+
   //Get job feed from Zapier
-  $.get('https://zapier.com/jobs/feeds/latest/', function(response){
+  $.get(zapier_feed_url, function(response){
 
     var feed = $(response);
 
@@ -24,20 +26,22 @@ $(function() {
       var job_title = item.find('title').text();
       var job_url = item.find('link').text();
 
-      // Create <li> to store job listing.
-      var li = $('<li class="job-item"></li>');
-
-      // Add job URL to the job listing
-      //li.find('a')
-      //  .attr('href', job_url);
-
-      // Add the company name to  the job listing
-      li.append('<h2 class="company-name">' + company_name +
-        '</h2><p class="job-title"><a href="' + job_url + '">'
-        + job_title + '</a></p>');
+      li = formatJobListing(company_name, job_url, job_title);
 
       li.appendTo($('ul.job-board'));
     });
   });
+
+  function formatJobListing(company_name, job_url, job_title) {
+    // Create <li> to store job listing.
+    var li = $('<li class="job-item"></li>');
+
+    // Add the company name to  the job listing
+    li.append('<h2 class="company-name">' + company_name +
+      '</h2><p class="job-title"><a href="' + job_url + '">'
+      + job_title + '</a></p>');
+
+    return li;
+  }
 
 })
